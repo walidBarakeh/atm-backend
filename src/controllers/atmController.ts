@@ -30,10 +30,11 @@ export const handleWithdrawal = async (req: Request, res: Response, next: NextFu
 
 export const handleRefill = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const denominations = req.body || {} as { money: { [key in Denomination]: number } };
-  if (isEmpty(denominations?.money)) {
-    throw new InvalidParamsError('invalid money params');
-  }
   try {
+    if (isEmpty(denominations?.money)) {
+      throw new InvalidParamsError('invalid money params');
+    }
+
     await refillATM(denominations.money);
     res.status(ErrorCodes.Created).send('ATM refilled');
   } catch (error) {

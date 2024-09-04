@@ -64,9 +64,12 @@ export const withdrawAmount = async (amount: number): Promise<WithdrawalResult> 
 
 export const refillATM = async (denominations: { [key in Denomination]: number }): Promise<void> => {
 
-    for (const key of Object.keys(denominations)) {
+    for (const [key, value] of Object.entries(denominations)) {
         if (!AllowedDenominationsSet.has(Number(key))) {
             throw new HttpError(ErrorCodes.UnprocessableEntity, `denomination ${key} is not supported`);
+        }
+        if (!Number.isFinite(value) || value < 0) {
+            throw new HttpError(ErrorCodes.UnprocessableEntity, `the count of denomination ${key} is not valid`);
         }
     }
     const trx = await client.transaction();

@@ -41,7 +41,7 @@ export const withdrawAmount = async (amount: number): Promise<WithdrawalResult> 
                 result[money.type][money.denomination] = count;
                 const newRemaining = remainingAmount - (count * denom);
                 remainingAmount = Math.round(newRemaining * 100) / 100; // a hack for javascript issue - console.log(55.66 - 40); // Output: 15.659999999999997
-                numberOfCoins += money.type === MoneyType.COIN ? 0 : count;
+                numberOfCoins += money.type === MoneyType.COIN ? count : 0;
                 await trx<ATMInventory>('atm_inventory').where({ denomination: denom }).decrement('count', count);
             }
             if (remainingAmount <= 0) break;

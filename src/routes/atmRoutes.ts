@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import { initializeATM, handleWithdrawal, handleRefill } from '../controllers/atmController';
+import { handleWithdrawal, handleRefill, currentBalance } from '../controllers/atmController';
 
 const router = Router();
 
-router.post('/initialize', initializeATM);
 router.post('/withdraw', handleWithdrawal);
 router.post('/refill', handleRefill);
+router.get('/balance', currentBalance);
 
 export default router;

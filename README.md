@@ -1,24 +1,37 @@
-# ATM Backend Service
+# ATM Machine Backend
 
-## Overview
+A TypeScript-based backend for handling ATM withdrawals with optimized bill and coin distribution.
 
-This project implements a simple ATM backend service using TypeScript, Express, Knex.js, and SQLite. The service supports withdrawal and refill operations with validations for optimal cash distribution.
+# Features
+Prioritizes bills over coins.
+Error handling for invalid amounts and excessive coins.
+APIs for withdrawal, refill, and health check.
+## Tech Stack
+TypeScript, Express, Knex.js, SQLite (In-Memory)
 
-## Features
+### Copy code
 
-- **Withdrawals**: Accepts withdrawal requests and returns optimized cash (bills and coins).
-- **Refills**: Accepts refill requests to replenish ATM inventory.
-- **In-Memory SQLite Database**: The service uses an in-memory SQLite database for demonstration purposes.
 
-## Getting Started
+```bash
 
-### Prerequisites
+git clone https://github.com/walidBarakeh/atm-backend.git
+cd atm-backend
+```
+## Setup
+```bash
+nvm use
+# Install dependencies
+npm install
 
-- Node.js
-- npm
+# Build the project
+npm run build
 
-### Installation
+npm run start
 
-1. Clone the repository:
-   ```bash
-   git clone https://github.com/your-username/atm-backend.git
+```
+
+## API Endpoints
+POST /atm/withdraw: Withdraws amount with bill preference.
+POST /atm/refill: Adds bills/coins to ATM.
+GET /atm/balance: return current atm balance.
+GET /is_alive: Server health check.

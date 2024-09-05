@@ -1,16 +1,14 @@
 {
   "name": "atm-backend",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "ATM machine handles withdraw and refill",
   "scripts": {
     "prepare": "husky install",
     "test": "jest --runInBand",
-    "build": "tsc",
+    "build": "tsc -p .",
     "lint": "eslint src/**/*.ts",
     "format": "prettier --write .",
-    "start": "node dist/server.js",
-    "dev": "nodemon src/server.ts"
+    "start:dev": "nodemon src/server.ts"
   },
   "keywords": [],
   "author": "walid Barakeh",

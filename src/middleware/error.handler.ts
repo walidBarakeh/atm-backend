@@ -1,11 +1,11 @@
 import { NextFunction, Request, Response } from 'express';
 import { ErrorCodes, HttpError, InvalidParamsError } from '../config/consts';
 
-export const handleErrorWithStatus = (error: any, req: Request, res: Response, _next: NextFunction) => {
+export const handleErrorWithStatus = (error: any, _req: Request, res: Response, _next: NextFunction) => {
   if (error instanceof HttpError) {
     res.status(error.statusCode).json({ error: error.message, ...error.errorDetails });
   } else if (error instanceof InvalidParamsError) {
-    return res.status(ErrorCodes.BadRequest).json({ error: error.message });
+    res.status(ErrorCodes.BadRequest).json({ error: error.message });
   } else {
     const response = {
       error: `${(error as Error).message}` || 'internal server error',

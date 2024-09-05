@@ -32,13 +32,8 @@ npm install
 # run tests
 npm run test
 
-# run in dev mode
-npm run dev
-
-# Build the project
-npm run build
-
-npm run start
+# run service
+npm run start:dev
 
 ```
 

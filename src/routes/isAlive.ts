@@ -9,7 +9,7 @@ router.get('', async (_req, res) => {
     alive: isDbConnected,
     isDbConnected: isDbConnected,
     version: process.env.npm_package_version,
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 });
 

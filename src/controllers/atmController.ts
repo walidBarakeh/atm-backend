@@ -3,7 +3,7 @@ import { withdrawAmount, refillATM, checkDbConnection, getATMBalance } from '../
 import { ErrorCodes, HttpError, InvalidParamsError } from '../config/consts';
 import { Denomination } from '../models/atmModel';
 import { isEmpty } from 'lodash';
-
+import { isValidAmount } from '../utils/general';
 
 export const handleWithdrawal = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
   const { amount } = req.body as { amount: number };
@@ -29,21 +29,20 @@ export const handleWithdrawal = async (req: Request, res: Response, next: NextFu
 };
 
 export const handleRefill = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
-  const denominations = req.body || {} as { money: { [key in Denomination]: number } };
+  const denominations = req.body || ({} as { money: { [key in Denomination]: number } });
   try {
     if (isEmpty(denominations?.money)) {
       throw new InvalidParamsError('invalid money params');
     }
 
     await refillATM(denominations.money);
-    res.status(ErrorCodes.Created).send('ATM refilled');
+    res.status(ErrorCodes.Created).send('ATM refilled successfully');
   } catch (error) {
     next(error);
   }
 };
 
 export const currentBalance = async (_req: Request, res: Response, next: NextFunction): Promise<void> => {
-
   try {
     const balance = await getATMBalance();
     res.status(ErrorCodes.Ok).send({ balance });
@@ -60,8 +59,3 @@ export const isDbConnectedCheck = async (): Promise<boolean> => {
     return false;
   }
 };
-
-function isValidAmount(amount: string): boolean {
-  const regex = /^\d+(\.\d{1,2})?$/;
-  return regex.test(amount);
-}

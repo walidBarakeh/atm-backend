@@ -1,8 +1,7 @@
 export enum MoneyType {
   BILL = 'BILL',
-  COIN = 'COIN'
+  COIN = 'COIN',
 }
-
 
 export const AllowedDenominationsSet = new Set([0.01, 0.1, 1, 5, 10, 20, 100, 200]);
 export enum Denomination {
@@ -16,7 +15,6 @@ export enum Denomination {
   BILL_200 = 200,
 }
 
-
 export interface ATMInventory {
   denomination: Denomination;
   count: number;
@@ -24,7 +22,6 @@ export interface ATMInventory {
 }
 
 export type WithdrawalResult = Record<MoneyType, Record<Denomination, number>>;
-
 
 export const MoneyTypeMap = {
   [Denomination.BILL_200]: MoneyType.BILL,
@@ -35,4 +32,4 @@ export const MoneyTypeMap = {
   [Denomination.COIN_1]: MoneyType.COIN,
   [Denomination.COIN_0_1]: MoneyType.COIN,
   [Denomination.COIN_0_01]: MoneyType.COIN,
-}
+};
